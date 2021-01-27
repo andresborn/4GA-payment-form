@@ -6,7 +6,11 @@ const firstName = document.getElementById("first-name")
 const lastName = document.getElementById("last-name")
 const city = document.getElementById("city")
 const postalCode = document.getElementById("postal-code")
-const cardTypes = document.getElementsByName("card-types")
+const visa = document.getElementById("visa")
+const masterCard = document.getElementById("master-card")
+const amex = document.getElementById("amex")
+const cardTypesContainer = document.getElementById("card-types-container")
+const state = document.getElementById("state")
 const error = document.getElementById('error')
 
 form.addEventListener('submit', (e) => {
@@ -32,7 +36,7 @@ form.addEventListener('submit', (e) => {
         error.style.display = "flex"
     }
     if (lastName.value === "") {
-        messages.push("Please provide your last name")
+        messages.push("Provide your last name")
         lastName.style.borderColor = "red"
         error.style.display = "flex"
     }
@@ -42,15 +46,21 @@ form.addEventListener('submit', (e) => {
         error.style.display = "flex"
     }
     if (postalCode.value === "") {
-        messages.push("Please provide your zip code")
+        messages.push("Provide your zip code")
         postalCode.style.borderColor = "red"
         error.style.display = "flex"
     }
-    if (card.Types.value === undefined || cardTypes.value === "visa" || cardTypes.value === "master-card" || cardTypes.value === "amex") {
-        messages.push("Please select your brand of card")
-        cardTypes.style.borderColor = "red"
+    if (visa.checked === false && masterCard.checked === false && amex.checked === false) {
+        messages.push("Select the brand of your card")
+        cardTypesContainer.setAttribute("class", "col-4 bg-danger rounded text-light")
         error.style.display = "flex"
     }
+    if (state.value === "Choose...") {
+        messages.push("Must select a state")
+        state.style.borderColor = "red"
+        error.style.display = "flex"
+    }
+    
     if (messages.length > 0) {
         e.preventDefault();
         error.textContent = messages.join(', ')
